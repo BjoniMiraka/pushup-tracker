@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4CAF50" />
+    <meta name="description" content="Track your daily pushups" />
+    <title>Pushup Tracker</title>
+
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="manifest" href="/app/manifest.json" />
+    <link rel="stylesheet" href="/app/styles/main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>💪 Pushup Tracker</h1>
+        <p class="subtitle">Daily Goal: 20 pushups</p>
+      </header>
+
+      <main>
+        <!-- Today's Status -->
+        <section class="today-status">
+          <div class="status-card">
+            <h2 id="todayDate">Today</h2>
+            <div class="progress-circle">
+              <div class="circle-content" id="mainContent">
+                <div id="notDoneView">
+                  <p class="question">Did you do your 20 pushups today?</p>
+                  <button class="btn btn-done" id="doneBtn">
+                    ✓ Done for Today
+                  </button>
+                </div>
+                <div id="doneView" style="display: none">
+                  <div class="success-icon">✓</div>
+                  <p class="success-message">Great job!</p>
+                  <p class="see-you">See you tomorrow 💪</p>
+                  <button class="btn btn-undo" id="undoBtn">Undo</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats-section">
+          <h2>Your Progress</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-value" id="currentStreak">0</span>
+              <span class="stat-label">Day Streak 🔥</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="daysCompleted">0</span>
+              <span class="stat-label">Total Days</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- History -->
+        <section class="history-section">
+          <h2>History</h2>
+          <div id="historyList" class="history-list">
+            <!-- History items will be inserted here -->
+          </div>
+        </section>
+
+        <!-- Notification Settings -->
+        <section class="settings-section">
+          <h2>Daily Reminder</h2>
+          <p class="notification-info">
+            Get reminded at 8 PM if you haven't completed your pushups
+          </p>
+          <button id="notificationToggle" class="btn btn-secondary">
+            Enable Notifications
+          </button>
+          <p class="notification-status" id="notificationStatus"></p>
+        </section>
+      </main>
+
+      <footer>
+        <p>Keep pushing! 💪</p>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <script src="../scripts/db.js?v=2"></script>
+    <script src="../scripts/app.js?v=2"></script>
+    <script src="../scripts/notifications.js?v=2"></script>
+    <script>
+      // Register service worker for PWA
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("../service-worker.js")
+          .then((reg) => console.log("Service Worker registered"))
+          .catch((err) =>
+            console.log("Service Worker registration failed:", err)
+          );
+      }
+    </script>
+  </body>
+</html>

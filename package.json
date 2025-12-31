@@ -1,0 +1,17 @@
+{
+  "name": "pushup-tracker",
+  "version": "1.0.0",
+  "description": "Simple pushup tracker with dark mode",
+  "scripts": {
+    "deploy": "vercel",
+    "deploy:prod": "vercel --prod"
+  },
+  "keywords": [
+    "pushup",
+    "tracker",
+    "fitness",
+    "pwa"
+  ],
+  "author": "",
+  "license": "MIT"
+}
