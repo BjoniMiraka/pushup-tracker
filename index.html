@@ -4,40 +4,124 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#4CAF50" />
-    <meta name="description" content="Track your daily pushups" />
-    <title>Pushup Tracker</title>
-
-    <link rel="icon" type="image/png" href="/assets/favicon.png" />
-    <link rel="manifest" href="/app/manifest.json" />
-    <link rel="stylesheet" href="/app/styles/main.css" />
+    <meta name="description" content="Track your daily fitness exercises" />
+    <title>Fitness Tracker</title>
+    <link rel="manifest" href="app/manifest.json" />
+    <link rel="stylesheet" href="app/styles/main.css" />
+    <link rel="apple-touch-icon" href="app/icons/icon-192.svg" />
   </head>
   <body>
     <div class="container">
       <header>
-        <h1>💪 Pushup Tracker</h1>
-        <p class="subtitle">Daily Goal: 20 pushups</p>
+        <h1>💪 Fitness Tracker</h1>
+        <div class="date-display">
+          <p class="current-date" id="currentDate">Loading...</p>
+          <p class="subtitle">Stay consistent, stay strong!</p>
+        </div>
       </header>
 
       <main>
-        <!-- Today's Status -->
-        <section class="today-status">
-          <div class="status-card">
-            <h2 id="todayDate">Today</h2>
-            <div class="progress-circle">
-              <div class="circle-content" id="mainContent">
-                <div id="notDoneView">
-                  <p class="question">Did you do your 20 pushups today?</p>
-                  <button class="btn btn-done" id="doneBtn">
-                    ✓ Done for Today
-                  </button>
-                </div>
-                <div id="doneView" style="display: none">
-                  <div class="success-icon">✓</div>
-                  <p class="success-message">Great job!</p>
-                  <p class="see-you">See you tomorrow 💪</p>
-                  <button class="btn btn-undo" id="undoBtn">Undo</button>
-                </div>
+        <!-- Exercise Cards Grid -->
+        <section class="exercises-section">
+          <h2>Today's Exercises</h2>
+
+          <!-- Pushups Card (Daily) -->
+          <div class="exercise-card" data-exercise="pushups">
+            <div class="exercise-header">
+              <div class="exercise-icon">💪</div>
+              <div class="exercise-info">
+                <h3>Pushups</h3>
+                <p class="exercise-goal" id="pushupsGoal">20 reps • Daily</p>
               </div>
+              <div class="exercise-status" id="pushupsStatus">
+                <span class="status-badge pending">Pending</span>
+              </div>
+            </div>
+            <div class="debt-alert" id="pushupsDebt" style="display: none">
+              <span class="debt-icon">⚠️</span>
+              <span class="debt-text"
+                >You have <strong id="debtAmount">0</strong> pushups in
+                debt!</span
+              >
+            </div>
+            <div class="exercise-actions">
+              <button class="btn-complete" id="pushupsDoneBtn">
+                ✓ Mark Complete
+              </button>
+              <button class="btn-skip" id="pushupsSkipBtn">
+                Skip with Reason
+              </button>
+              <button
+                class="btn-undo-small"
+                id="pushupsUndoBtn"
+                style="display: none"
+              >
+                Undo
+              </button>
+            </div>
+          </div>
+
+          <!-- Knee Strength Card (Daily) -->
+          <div class="exercise-card" data-exercise="knees">
+            <div class="exercise-header">
+              <div class="exercise-icon">🦵</div>
+              <div class="exercise-info">
+                <h3>Knee Strength</h3>
+                <p class="exercise-goal">Follow video • Daily</p>
+              </div>
+              <div class="exercise-status" id="kneesStatus">
+                <span class="status-badge pending">Pending</span>
+              </div>
+            </div>
+            <div class="exercise-link">
+              <a
+                href="https://www.youtube.com/shorts/MJbIriAmDUs"
+                target="_blank"
+                class="video-link"
+              >
+                📺 Watch Exercise Video
+              </a>
+            </div>
+            <div class="exercise-actions">
+              <button class="btn-complete" id="kneesDoneBtn">
+                ✓ Mark Complete
+              </button>
+              <button
+                class="btn-undo-small"
+                id="kneesUndoBtn"
+                style="display: none"
+              >
+                Undo
+              </button>
+            </div>
+          </div>
+
+          <!-- Abs Card (2-3x per week) -->
+          <div class="exercise-card" data-exercise="abs">
+            <div class="exercise-header">
+              <div class="exercise-icon">🔥</div>
+              <div class="exercise-info">
+                <h3>Abs Workout</h3>
+                <p class="exercise-goal">10 minutes • 3x/week</p>
+              </div>
+              <div class="exercise-status" id="absStatus">
+                <span class="status-badge pending">Pending</span>
+              </div>
+            </div>
+            <div class="weekly-progress" id="absWeeklyProgress">
+              <span class="weekly-count">0/3 this week</span>
+            </div>
+            <div class="exercise-actions">
+              <button class="btn-complete" id="absDoneBtn">
+                ✓ Mark Complete
+              </button>
+              <button
+                class="btn-undo-small"
+                id="absUndoBtn"
+                style="display: none"
+              >
+                Undo
+              </button>
             </div>
           </div>
         </section>
@@ -57,12 +141,11 @@
           </div>
         </section>
 
-        <!-- History -->
-        <section class="history-section">
-          <h2>History</h2>
-          <div id="historyList" class="history-list">
-            <!-- History items will be inserted here -->
-          </div>
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+          <a href="history.html" class="action-link">
+            📊 View Full History & Debt
+          </a>
         </section>
 
         <!-- Notification Settings -->
@@ -83,16 +166,67 @@
       </footer>
     </div>
 
+    <!-- Skip Reason Modal -->
+    <div id="skipModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Why are you skipping today?</h2>
+        </div>
+        <div class="modal-body">
+          <p class="modal-description">
+            Choose a reason (this will add to your debt):
+          </p>
+          <div class="reason-buttons">
+            <button class="reason-btn" data-reason="not-feeling-ok">
+              😷 Not Feeling OK
+            </button>
+            <button class="reason-btn" data-reason="too-tired">
+              😴 Too Tired
+            </button>
+            <button class="reason-btn" data-reason="no-time">⏰ No Time</button>
+            <button class="reason-btn" data-reason="injured">🤕 Injured</button>
+            <button class="reason-btn" data-reason="other">
+              📝 Other Reason
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="cancelSkipBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="confirmTitle">Are you sure?</h2>
+        </div>
+        <div class="modal-body">
+          <p id="confirmMessage" class="confirm-message"></p>
+          <p class="warning-text">💪 Just do more!</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" id="cancelConfirmBtn">
+            Go Back & Do It
+          </button>
+          <button class="btn-confirm-skip" id="confirmSkipBtn">
+            Skip Anyway
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
-    <script src="../scripts/db.js?v=2"></script>
-    <script src="../scripts/app.js?v=2"></script>
-    <script src="../scripts/notifications.js?v=2"></script>
+    <script src="app/scripts/db.js?v=3"></script>
+    <script src="app/scripts/app.js?v=3"></script>
+    <script src="app/scripts/notifications.js?v=2"></script>
     <script>
       // Register service worker for PWA
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
-          .register("../service-worker.js")
+          .register("app/service-worker.js")
           .then((reg) => console.log("Service Worker registered"))
           .catch((err) =>
             console.log("Service Worker registration failed:", err)

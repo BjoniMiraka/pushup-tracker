@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#4CAF50" />
+    <meta name="description" content="View your exercise history" />
+    <title>History - Fitness Tracker</title>
+    <link rel="manifest" href="app/manifest.json" />
+    <link rel="stylesheet" href="app/styles/main.css" />
+    <link rel="apple-touch-icon" href="app/icons/icon-192.svg" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-nav">
+          <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+        <h1>📊 History & Progress</h1>
+        <div class="date-display">
+          <p class="current-date" id="currentDate">Loading...</p>
+        </div>
+      </header>
+
+      <main>
+        <!-- Debt History Table -->
+        <section class="debt-section" id="debtSection" style="display: none">
+          <h2>💳 Pushup Debt History</h2>
+          <div class="debt-summary" id="debtSummary">
+            <div class="summary-card">
+              <span class="summary-value" id="totalDebt">0</span>
+              <span class="summary-label">Total Debt</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-value" id="paidDebt">0</span>
+              <span class="summary-label">Paid Off</span>
+            </div>
+            <div class="summary-card">
+              <span class="summary-value" id="unpaidDebt">0</span>
+              <span class="summary-label">Remaining</span>
+            </div>
+          </div>
+          <div class="debt-table-container">
+            <table class="debt-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Reason</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="debtTableBody">
+                <!-- Debt entries will be inserted here -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Exercise History -->
+        <section class="history-section">
+          <h2>📅 Exercise History</h2>
+          <div class="history-filter">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="pushups">💪 Pushups</button>
+            <button class="filter-btn" data-filter="knees">🦵 Knees</button>
+            <button class="filter-btn" data-filter="abs">🔥 Abs</button>
+          </div>
+          <div id="historyList" class="history-list">
+            <!-- History items will be inserted here -->
+          </div>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats-section">
+          <h2>📈 Overall Statistics</h2>
+          <div class="stats-grid-large">
+            <div class="stat-card">
+              <span class="stat-value" id="currentStreak">0</span>
+              <span class="stat-label">Day Streak 🔥</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="daysCompleted">0</span>
+              <span class="stat-label">Total Days</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="totalPushups">0</span>
+              <span class="stat-label">Total Pushups</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="totalKnees">0</span>
+              <span class="stat-label">Knee Workouts</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="totalAbs">0</span>
+              <span class="stat-label">Abs Workouts</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-value" id="completionRate">0%</span>
+              <span class="stat-label">Completion Rate</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Keep pushing! 💪</p>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <script src="app/scripts/db.js?v=3"></script>
+    <script src="app/scripts/history.js?v=3"></script>
+  </body>
+</html>
+

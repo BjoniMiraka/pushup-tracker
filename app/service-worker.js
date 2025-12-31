@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pushup-tracker-v2-simplified';
+const CACHE_NAME = 'pushup-tracker-v3-debt-system';
 const urlsToCache = [
   './pages/index.html',
   './styles/main.css',
