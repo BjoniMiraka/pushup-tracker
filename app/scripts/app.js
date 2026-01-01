@@ -278,9 +278,13 @@ function updateDebtDisplay() {
 }
 
 function updateDebtTable() {
-  const allDebt = pushupDB.getAllDebt();
   const debtSection = document.getElementById("debtSection");
   const debtTableBody = document.getElementById("debtTableBody");
+  
+  // Only update if elements exist (they're on history page, not main page)
+  if (!debtSection || !debtTableBody) return;
+
+  const allDebt = pushupDB.getAllDebt();
 
   if (allDebt.length === 0) {
     debtSection.style.display = "none";
@@ -419,6 +423,10 @@ function calculatePushupStreak() {
 
 function updateHistory() {
   const historyList = document.getElementById("historyList");
+  
+  // Only update if element exists (it's on history page, not main page)
+  if (!historyList) return;
+
   const dailyTotals = pushupDB.getDailyTotals();
 
   if (dailyTotals.length === 0) {
