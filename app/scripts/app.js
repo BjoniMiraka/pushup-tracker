@@ -338,6 +338,9 @@ function updateExerciseCard(exerciseType, entries) {
     .querySelector(".status-badge");
   const doneBtn = document.getElementById(`${exerciseType}DoneBtn`);
   const undoBtn = document.getElementById(`${exerciseType}UndoBtn`);
+  
+  // Get skip button if it exists (only for pushups)
+  const skipBtn = document.getElementById(`${exerciseType}SkipBtn`);
 
   if (completed) {
     card.classList.add("completed");
@@ -346,6 +349,11 @@ function updateExerciseCard(exerciseType, entries) {
     statusBadge.classList.add("completed");
     doneBtn.style.display = "none";
     undoBtn.style.display = "block";
+    
+    // Hide skip button when completed
+    if (skipBtn) {
+      skipBtn.style.display = "none";
+    }
   } else {
     card.classList.remove("completed");
     statusBadge.textContent = "Pending";
@@ -353,6 +361,11 @@ function updateExerciseCard(exerciseType, entries) {
     statusBadge.classList.add("pending");
     doneBtn.style.display = "block";
     undoBtn.style.display = "none";
+    
+    // Show skip button when not completed
+    if (skipBtn) {
+      skipBtn.style.display = "block";
+    }
   }
 }
 
