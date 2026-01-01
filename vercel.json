@@ -1,16 +1,6 @@
 {
   "version": 2,
   "public": true,
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/app/index.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/app/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/app/service-worker.js",

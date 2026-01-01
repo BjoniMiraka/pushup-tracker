@@ -280,7 +280,7 @@ function updateDebtDisplay() {
 function updateDebtTable() {
   const debtSection = document.getElementById("debtSection");
   const debtTableBody = document.getElementById("debtTableBody");
-  
+
   // Only update if elements exist (they're on history page, not main page)
   if (!debtSection || !debtTableBody) return;
 
@@ -423,7 +423,7 @@ function calculatePushupStreak() {
 
 function updateHistory() {
   const historyList = document.getElementById("historyList");
-  
+
   // Only update if element exists (it's on history page, not main page)
   if (!historyList) return;
 
