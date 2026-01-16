@@ -1,5 +1,8 @@
-Nothing Here
+# Pushup Tracker 💪
 
+A simple app to help you stay consistent with your pushups and track your progress over time.
 
-------APP to keep track of your pushups mainly-----
-pushup-tracker-theta.vercel.app give it a try if u think your consistent
+## 🚀 Live Demo
+Try it out here:  
+👉 https://pushup-tracker-theta.vercel.app
+
